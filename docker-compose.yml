@@ -1,0 +1,20 @@
+version: '3.1'
+
+services:
+  db:
+    build:
+      context: ./postgres
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: expense-tracker
+    ports:
+      - "5432:5432"
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8888:8080"
