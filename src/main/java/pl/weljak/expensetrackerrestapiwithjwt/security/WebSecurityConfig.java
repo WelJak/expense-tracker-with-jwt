@@ -13,7 +13,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import pl.weljak.expensetrackerrestapiwithjwt.domain.user.PostgresEtUserRepo;
+import pl.weljak.expensetrackerrestapiwithjwt.domain.user.PostgresEtUserRepository;
 import pl.weljak.expensetrackerrestapiwithjwt.security.jwt.JwtAuthTokenFilter;
 import pl.weljak.expensetrackerrestapiwithjwt.security.jwt.JwtAuthEntryPoint;
 import pl.weljak.expensetrackerrestapiwithjwt.security.jwt.JwtTokenProvider;
@@ -27,7 +27,7 @@ import pl.weljak.expensetrackerrestapiwithjwt.utils.Endpoints;
 )
 @RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    private final PostgresEtUserRepo postgresEtUserRepo;
+    private final PostgresEtUserRepository postgresEtUserRepository;
     private final JwtAuthEntryPoint jwtAuthEntryPoint;
     private final JwtTokenProvider jwtTokenProvider;
 
@@ -43,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public UserDetailsService userDetailsService(){
-        return new PostgresUserDetailsService(postgresEtUserRepo);
+        return new PostgresUserDetailsService(postgresEtUserRepository);
     }
 
     @Override

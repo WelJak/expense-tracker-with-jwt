@@ -4,9 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.weljak.expensetrackerrestapiwithjwt.domain.transactions.Transaction;
 import pl.weljak.expensetrackerrestapiwithjwt.domain.user.EtUser;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "et_categories")
@@ -28,5 +30,8 @@ public class Category {
 
     @Column(name = "description", nullable = false)
     private String description;
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.REMOVE)
+    private List<Transaction> transactions;
 
 }

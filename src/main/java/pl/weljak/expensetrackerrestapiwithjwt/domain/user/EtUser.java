@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.weljak.expensetrackerrestapiwithjwt.domain.categories.Category;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "et_users")
@@ -36,5 +38,8 @@ public class EtUser {
     @Column(name = "role", nullable = false)
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
+
+    @OneToMany(mappedBy = "etUserId", cascade = CascadeType.REMOVE)
+    List<Category> categories;
 
 }

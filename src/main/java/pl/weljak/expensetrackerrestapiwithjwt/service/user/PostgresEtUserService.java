@@ -9,18 +9,19 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.weljak.expensetrackerrestapiwithjwt.domain.user.EtUser;
-import pl.weljak.expensetrackerrestapiwithjwt.domain.user.PostgresEtUserRepo;
+import pl.weljak.expensetrackerrestapiwithjwt.domain.user.PostgresEtUserRepository;
 import pl.weljak.expensetrackerrestapiwithjwt.domain.user.UserAlreadyExistsException;
 import pl.weljak.expensetrackerrestapiwithjwt.domain.user.UserRole;
 import pl.weljak.expensetrackerrestapiwithjwt.security.jwt.JwtTokenProvider;
 
+import java.util.Collections;
 import java.util.UUID;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class PostgresEtUserService implements EtUserService {
-    private final PostgresEtUserRepo etUserRepo;
+    private final PostgresEtUserRepository etUserRepo;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -42,7 +43,7 @@ public class PostgresEtUserService implements EtUserService {
             log.error("User {} already exists", username);
             throw new UserAlreadyExistsException();
         }
-        EtUser etUser = new EtUser(UUID.randomUUID().toString(),username, firstName, lastName, email, bCryptPasswordEncoder.encode(password), UserRole.ROLE_USER);
+        EtUser etUser = new EtUser(UUID.randomUUID().toString(),username, firstName, lastName, email, bCryptPasswordEncoder.encode(password), UserRole.ROLE_USER, Collections.emptyList());
         etUserRepo.save(etUser);
         log.info("User {} created! User id: {}", etUser.getUsername(), etUser.getUserId());
         return etUser;
