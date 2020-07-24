@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.weljak.expensetrackerrestapiwithjwt.domain.user.EtUser;
 import pl.weljak.expensetrackerrestapiwithjwt.domain.user.PostgresEtUserRepository;
 import pl.weljak.expensetrackerrestapiwithjwt.domain.user.UserAlreadyExistsException;
@@ -37,6 +38,7 @@ public class PostgresEtUserService implements EtUserService {
     }
 
     @Override
+    @Transactional
     public EtUser createUser(String username, String firstName, String lastName, String email, String password) {
         log.info("Creating new user with username: {}, email:{}", username, email);
         if (etUserRepo.existsByUsername(username) || etUserRepo.existsByEmail(email)){

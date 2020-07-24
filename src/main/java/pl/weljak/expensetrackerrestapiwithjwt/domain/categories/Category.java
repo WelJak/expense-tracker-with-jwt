@@ -31,7 +31,7 @@ public class Category {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "category", cascade = CascadeType.REMOVE)
     private List<Transaction> transactions;
 
 }

@@ -39,7 +39,7 @@ public class EtUser {
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
-    @OneToMany(mappedBy = "etUserId", cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "etUserId", cascade = CascadeType.REMOVE)
     List<Category> categories;
 
 }
