@@ -52,6 +52,13 @@ public class EtUserController {
         return EtResponseUtils.success(Endpoints.AUTH_REGISTER_ENDPOINT, toEtUserDetailsResponse(etUser), "New user created!", HttpStatus.CREATED);
     }
 
+    @DeleteMapping(Endpoints.USER_DELETE_ENDPOINT)
+    public ResponseEntity<EtResponse> deleteEtUserById(@AuthenticationPrincipal UserPrinciple userPrinciple) {
+        log.info("Deleting user with id: {}", userPrinciple.getEtUserId());
+        etUserService.deleteEtUserById(userPrinciple.getEtUserId());
+        return EtResponseUtils.noContent();
+    }
+
     private EtUserDetailsResponse toEtUserDetailsResponse(EtUser etUser) {
         return EtUserDetailsResponse.builder()
                 .username(etUser.getUsername())

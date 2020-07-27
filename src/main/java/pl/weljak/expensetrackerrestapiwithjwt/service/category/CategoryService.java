@@ -13,4 +13,6 @@ public interface CategoryService {
     List<Category> findAllUserCategories(EtUser etUser);
 
     Category updateCategory(String categoryId, String title, String description);
+
+    void deleteCategoryById(String categoryId);
 }

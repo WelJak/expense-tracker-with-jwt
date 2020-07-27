@@ -8,6 +8,8 @@ public class Endpoints {
     private static final String USER_ENDPOINT = "/user";
     public static final String USER_DETAILS_ENDPOINT = USER_ENDPOINT + "/details";
     public static final String USERS_DETAILS_ENDPOINT = USER_DETAILS_ENDPOINT + "/{id}";
+    public static final String USER_DELETE_ENDPOINT = USER_ENDPOINT + "/delete";
+   // public static final String USERS_DELETE_ENDPOINT = USER_DELETE_ENDPOINT + "/{id}";
 
     private static final String CATEGORY_ENDPOINT = "/category";
     public static final String CATEGORY_CREATE_ENDPOINT = CATEGORY_ENDPOINT + "/create";
@@ -15,6 +17,8 @@ public class Endpoints {
     public static final String CATEGORIES_ENDPOINT = "/categories";
     public static final String CATEGORY_UPDATE_ENDPOINT = CATEGORY_ENDPOINT + "/update";
    // public static final String CATEGORY_UPDATES_ENDPOINT = CATEGORY_UPDATE_ENDPOINT + "/{id}";
+    private static final String CATEGORY_DELETE_ENDPOINT = CATEGORY_ENDPOINT + "/delete";
+    public static final String CATEGORY_DELETES_ENDPOING = CATEGORY_DELETE_ENDPOINT + "/{id}";
 
     private static final String TRANSACTION_ENDPOINT = "/transaction";
     public static final String TRANSACTION_CREATE_ENDPOINT = TRANSACTION_ENDPOINT + "/create";

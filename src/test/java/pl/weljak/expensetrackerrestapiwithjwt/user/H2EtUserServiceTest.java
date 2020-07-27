@@ -10,7 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.test.context.ActiveProfiles;
-import pl.weljak.expensetrackerrestapiwithjwt.ExpenseTrackerRestApiWithJwtApplication;
 import pl.weljak.expensetrackerrestapiwithjwt.domain.user.EtUser;
 import pl.weljak.expensetrackerrestapiwithjwt.domain.user.PostgresEtUserRepository;
 import pl.weljak.expensetrackerrestapiwithjwt.domain.user.UserRole;
@@ -69,7 +68,7 @@ public class H2EtUserServiceTest {
     }
 
     @Test
-    public void EtUserServiceShouldThrowBadCredentialsExceptionDuringValidationWhenPasswordIsIncorrect() {
+    public void etUserServiceShouldThrowBadCredentialsExceptionDuringValidationWhenPasswordIsIncorrect() {
         // given
         EtUser newUser = etUserService.createUser("johnTravolta", "john", "travolta", "email@email.com", "password");
 
@@ -78,7 +77,7 @@ public class H2EtUserServiceTest {
     }
 
     @Test
-    public void EtUserServiceShouldThrowInternalAuthenticationServiceExceptionDuringValidationWhenUsernameIsIncorrect() {
+    public void etUserServiceShouldThrowInternalAuthenticationServiceExceptionDuringValidationWhenUsernameIsIncorrect() {
         // given
         EtUser newUser = etUserService.createUser("johnTravolta", "john", "travolta", "email@email.com", "password");
 
@@ -87,7 +86,7 @@ public class H2EtUserServiceTest {
     }
 
     @Test
-    public void EtUserServiceShouldFindUserByUserId() {
+    public void etUserServiceShouldFindUserByUserId() {
         // given
         EtUser user = new EtUser("newId", "JohnTravolta", "John", "Travolta", "jonh@john.com", "John123", UserRole.ROLE_USER, Collections.emptyList());
         postgresEtUserRepository.save(user);
@@ -103,6 +102,19 @@ public class H2EtUserServiceTest {
         Assertions.assertEquals("Travolta", res.getLastName());
         Assertions.assertEquals("jonh@john.com", res.getEmail());
         Assertions.assertEquals(0, res.getCategories().size());
+    }
+
+    @Test
+    public void etUserServiceShouldDeleteUser() {
+        // given
+        EtUser newUser = etUserService.createUser("johnTravolta", "john", "travolta", "email@email.com", "password");
+
+        // when
+        etUserService.deleteEtUserById(newUser.getUserId());
+        EtUser deletedUser = etUserService.findEtUserById(newUser.getUserId());
+
+        // then
+        Assertions.assertNull(deletedUser);
     }
 
 }

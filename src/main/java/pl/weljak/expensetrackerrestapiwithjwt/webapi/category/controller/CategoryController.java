@@ -52,6 +52,13 @@ public class CategoryController {
         return EtResponseUtils.success(Endpoints.CATEGORY_UPDATE_ENDPOINT, toCategoryDetailsResponse(category), "Category updated", HttpStatus.CREATED);
     }
 
+    @DeleteMapping(Endpoints.CATEGORY_DELETES_ENDPOING)
+    public ResponseEntity<EtResponse> deleteCategoryById(@AuthenticationPrincipal UserPrinciple userPrinciple, @PathVariable String id) {
+        log.info("Deleting category with id: {} Commissioned by: {}", id, userPrinciple.getEtUserId());
+        categoryService.deleteCategoryById(id);
+        return EtResponseUtils.noContent();
+    }
+
     private CategoryDetailsResponse toCategoryDetailsResponse(Category category) {
         return new CategoryDetailsResponse(
                 category.getCategoryId(),

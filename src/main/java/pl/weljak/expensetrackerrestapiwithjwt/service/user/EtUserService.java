@@ -10,4 +10,6 @@ public interface EtUserService {
     EtUser findEtUserById(String id);
 
     EtUser findEtUserByUsername(String username);
+
+    void deleteEtUserById(String id);
 }

@@ -52,4 +52,11 @@ public class PostgresCategoryService implements CategoryService {
         categoryRepository.save(toUpdate);
         return toUpdate;
     }
+
+    @Override
+    public void deleteCategoryById(String categoryId) {
+        log.info("Deleting category with id: {}", categoryId);
+        Category category = categoryRepository.findByCategoryId(categoryId);
+        categoryRepository.delete(category);
+    }
 }

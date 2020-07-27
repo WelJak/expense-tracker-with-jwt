@@ -62,4 +62,11 @@ public class PostgresEtUserService implements EtUserService {
         log.info("Fetching details of user with username: {}", username);
         return etUserRepo.findByUsername(username);
     }
+
+    @Override
+    public void deleteEtUserById(String id) {
+        log.info("Deleting user with id: {}", id);
+        EtUser etUser = etUserRepo.findByUserId(id);
+        etUserRepo.delete(etUser);
+    }
 }

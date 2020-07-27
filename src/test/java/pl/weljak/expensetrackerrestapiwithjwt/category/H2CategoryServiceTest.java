@@ -127,4 +127,18 @@ public class H2CategoryServiceTest {
         Assertions.assertEquals("New category description", res.getDescription());
         Assertions.assertEquals("johnTravolta", res.getEtUserId().getUsername());
     }
+
+    @Test
+    public void categoryServiceShouldDeleteCategory() {
+        // given
+        EtUser user = userService.findEtUserByUsername("johnTravolta");
+        Category category = categoryService.createCategory(user, "Old category title", "Old category description");
+
+        // when
+        categoryService.deleteCategoryById(category.getCategoryId());
+        Category deletedCategory = categoryService.findCategoryByCategoryId(category.getCategoryId());
+
+        // then
+        Assertions.assertNull(deletedCategory);
+    }
 }
