@@ -15,9 +15,7 @@ import pl.weljak.expensetrackerrestapiwithjwt.domain.transactions.Transaction;
 import pl.weljak.expensetrackerrestapiwithjwt.domain.user.EtUser;
 import pl.weljak.expensetrackerrestapiwithjwt.domain.user.PostgresEtUserRepository;
 import pl.weljak.expensetrackerrestapiwithjwt.domain.user.UserRole;
-import pl.weljak.expensetrackerrestapiwithjwt.service.category.CategoryService;
 import pl.weljak.expensetrackerrestapiwithjwt.service.transaction.TransactionService;
-import pl.weljak.expensetrackerrestapiwithjwt.service.user.EtUserService;
 
 import java.util.Collections;
 import java.util.List;

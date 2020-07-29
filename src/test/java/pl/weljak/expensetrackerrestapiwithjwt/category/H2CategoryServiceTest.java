@@ -22,16 +22,16 @@ import java.util.List;
 @SpringBootTest
 public class H2CategoryServiceTest {
     @Autowired
-    CategoryService categoryService;
+    private CategoryService categoryService;
 
     @Autowired
-    EtUserService userService;
+    private EtUserService userService;
 
     @Autowired
-    PostgresEtUserRepository userRepository;
+    private PostgresEtUserRepository userRepository;
 
     @Autowired
-    PostgresCategoryRepository categoryRepository;
+    private PostgresCategoryRepository categoryRepository;
 
     @BeforeEach
     public void doBeforeEachTest() {

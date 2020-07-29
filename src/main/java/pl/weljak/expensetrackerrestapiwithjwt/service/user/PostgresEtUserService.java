@@ -28,7 +28,7 @@ public class PostgresEtUserService implements EtUserService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public String  validateUser(String username, String password) {
+    public String validateUser(String username, String password) {
         log.info("Validating user: {}", username);
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(username, password)
@@ -41,11 +41,11 @@ public class PostgresEtUserService implements EtUserService {
     @Transactional
     public EtUser createUser(String username, String firstName, String lastName, String email, String password) {
         log.info("Creating new user with username: {}, email:{}", username, email);
-        if (etUserRepo.existsByUsername(username) || etUserRepo.existsByEmail(email)){
+        if (etUserRepo.existsByUsername(username) || etUserRepo.existsByEmail(email)) {
             log.error("User {} already exists", username);
             throw new UserAlreadyExistsException();
         }
-        EtUser etUser = new EtUser(UUID.randomUUID().toString(),username, firstName, lastName, email, bCryptPasswordEncoder.encode(password), UserRole.ROLE_USER, Collections.emptyList());
+        EtUser etUser = new EtUser(UUID.randomUUID().toString(), username, firstName, lastName, email, bCryptPasswordEncoder.encode(password), UserRole.ROLE_USER, Collections.emptyList());
         etUserRepo.save(etUser);
         log.info("User {} created! User id: {}", etUser.getUsername(), etUser.getUserId());
         return etUser;

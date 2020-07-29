@@ -8,9 +8,14 @@ import java.util.List;
 
 public interface TransactionService {
     Transaction createTransaction(Category category, EtUser etUser, Long amount, String note);
+
     Transaction findTransactionById(String transactionId);
+
     void deleteTransaction(String transactionId);
+
     Transaction updateTransaction(String transactionId, Long amount, String note, Category category);
+
     List<Transaction> findAllTransactionsByEtUser(EtUser etUser);
+
     List<Transaction> findAllTransactionByCategory(Category category);
 }

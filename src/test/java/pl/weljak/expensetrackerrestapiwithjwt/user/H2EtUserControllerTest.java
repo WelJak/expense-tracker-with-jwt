@@ -24,6 +24,7 @@ import pl.weljak.expensetrackerrestapiwithjwt.domain.user.UserRole;
 import pl.weljak.expensetrackerrestapiwithjwt.service.user.EtUserService;
 import pl.weljak.expensetrackerrestapiwithjwt.utils.Endpoints;
 import pl.weljak.expensetrackerrestapiwithjwt.webapi.etuser.request.EtLoginRequest;
+import pl.weljak.expensetrackerrestapiwithjwt.webapi.etuser.request.EtRegistrationRequest;
 import pl.weljak.expensetrackerrestapiwithjwt.webapi.etuser.response.EtLoginResponse;
 import pl.weljak.expensetrackerrestapiwithjwt.webapi.etuser.response.EtUserDetailsResponse;
 
@@ -37,16 +38,16 @@ import java.util.Collections;
 @ActiveProfiles("test")
 public class H2EtUserControllerTest {
     @Autowired
-    PostgresEtUserRepository userRepository;
+    private PostgresEtUserRepository userRepository;
 
     @Autowired
-    EtUserService userService;
+    private EtUserService userService;
 
     @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     private Gson gson = new Gson();
 
@@ -135,6 +136,20 @@ public class H2EtUserControllerTest {
         // then
         mockMvc.perform(MockMvcRequestBuilders.get(USER_DETAILS_ENDPOINT).contentType(MediaType.APPLICATION_JSON).header(authHeader, BEARER + jwtToken))
                 .andExpect(MockMvcResultMatchers.status().isForbidden());
+    }
+
+    @Test
+    public void etUserControllerShouldCreateNewEtUser() throws Exception {
+        // given
+        EtRegistrationRequest registrationRequest = new EtRegistrationRequest("newUser", "password", "user", "user", "user@user.com");
+
+        // when
+        mockMvc.perform(MockMvcRequestBuilders.post(Endpoints.AUTH_REGISTER_ENDPOINT).contentType(MediaType.APPLICATION_JSON).content(gson.toJson(registrationRequest)))
+                .andExpect(MockMvcResultMatchers.status().isCreated());
+        EtUser etUser = userService.findEtUserByUsername("newUser");
+
+        // then
+        Assertions.assertNotNull(etUser);
 
     }
 
@@ -143,7 +158,7 @@ public class H2EtUserControllerTest {
             JsonObject responseJsonObject = gson.fromJson(result.getResponse().getContentAsString(), JsonObject.class);
             JsonElement payloadJson = responseJsonObject.getAsJsonObject("payload");
             return gson.fromJson(payloadJson, (Type) response);
-        }catch (UnsupportedEncodingException uee) {
+        } catch (UnsupportedEncodingException uee) {
             uee.printStackTrace();
             throw new RuntimeException(uee);
         }

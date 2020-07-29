@@ -22,7 +22,7 @@ import java.util.Collections;
 @SpringBootTest
 public class H2EtUserServiceTest {
     @Autowired
-    PostgresEtUserRepository postgresEtUserRepository;
+    private PostgresEtUserRepository postgresEtUserRepository;
 
     @Autowired
     private EtUserService etUserService;
