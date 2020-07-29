@@ -13,7 +13,7 @@ import pl.weljak.expensetrackerrestapiwithjwt.utils.Endpoints;
 import pl.weljak.expensetrackerrestapiwithjwt.utils.EtResponse;
 import pl.weljak.expensetrackerrestapiwithjwt.utils.EtResponseUtils;
 import pl.weljak.expensetrackerrestapiwithjwt.webapi.category.request.CreateCategoryRequest;
-import pl.weljak.expensetrackerrestapiwithjwt.webapi.category.request.UdpateCategoryRequest;
+import pl.weljak.expensetrackerrestapiwithjwt.webapi.category.request.UpdateCategoryRequest;
 import pl.weljak.expensetrackerrestapiwithjwt.webapi.category.response.CategoryDetailsResponse;
 
 import java.util.ArrayList;
@@ -47,8 +47,8 @@ public class CategoryController {
     }
 
     @PutMapping(Endpoints.CATEGORY_UPDATE_ENDPOINT)
-    public ResponseEntity<EtResponse> updateCategory(@AuthenticationPrincipal UserPrinciple userPrinciple, @RequestBody UdpateCategoryRequest udpateCategoryRequest) {
-        Category category = categoryService.updateCategory(udpateCategoryRequest.getId(), udpateCategoryRequest.getTitle(), udpateCategoryRequest.getDescription());
+    public ResponseEntity<EtResponse> updateCategory(@AuthenticationPrincipal UserPrinciple userPrinciple, @RequestBody UpdateCategoryRequest updateCategoryRequest) {
+        Category category = categoryService.updateCategory(updateCategoryRequest.getId(), updateCategoryRequest.getTitle(), updateCategoryRequest.getDescription());
         return EtResponseUtils.success(Endpoints.CATEGORY_UPDATE_ENDPOINT, toCategoryDetailsResponse(category), "Category updated", HttpStatus.CREATED);
     }
 
@@ -73,6 +73,6 @@ public class CategoryController {
         for (Category category : categories) {
             categoryDetailsList.add(toCategoryDetailsResponse(category));
         }
-        return  categoryDetailsList;
+        return categoryDetailsList;
     }
 }

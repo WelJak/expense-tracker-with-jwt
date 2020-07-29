@@ -49,7 +49,7 @@ public class H2EtUserControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private Gson gson = new Gson();
+    private final Gson gson = new Gson();
 
     private static final String authHeader = "Authorization";
 
@@ -155,8 +155,7 @@ public class H2EtUserControllerTest {
 
     private <T> T jsonToResponseObject(MvcResult result, Class<T> response) {
         try {
-            JsonObject responseJsonObject = gson.fromJson(result.getResponse().getContentAsString(), JsonObject.class);
-            JsonElement payloadJson = responseJsonObject.getAsJsonObject("payload");
+            JsonElement payloadJson = gson.fromJson(result.getResponse().getContentAsString(), JsonObject.class).get("payload");
             return gson.fromJson(payloadJson, (Type) response);
         } catch (UnsupportedEncodingException uee) {
             uee.printStackTrace();
