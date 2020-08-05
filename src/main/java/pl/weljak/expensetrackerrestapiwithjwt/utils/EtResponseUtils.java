@@ -11,7 +11,7 @@ public class EtResponseUtils {
     private EtResponseUtils(){}
 
     private static Clock clock = Clock.systemDefaultZone();
-    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
 
     public static ResponseEntity<EtResponse> success(String endpoint, Object any, String message, HttpStatus httpStatus) {
         EtResponse response = successEtResponse(endpoint, any, message, httpStatus);
